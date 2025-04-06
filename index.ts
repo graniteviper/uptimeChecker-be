@@ -8,7 +8,7 @@ const app = express();
 const prismaClient = new PrismaClient();
 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "https://uptime-checker-py3w.vercel.app/",
 }))
 app.use(express.json());
 
