@@ -1,6 +1,6 @@
 // create Website, get all websites status, get website status
 import express from "express"
-import { authMiddleware } from "./middleware/auth.middleware.ts";
+import { authMiddleware } from "./middleware/auth.middleware";
 import { PrismaClient } from "@prisma/client";
 import cors from 'cors';
 const app = express();
@@ -9,7 +9,7 @@ const prismaClient = new PrismaClient();
 
 app.use(
     cors({
-      origin: 'https://uptime-checker-py3w.vercel.app', 
+      origin: ['https://uptime-checker-py3w.vercel.app','http://localhost:3000'], 
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
       credentials: true,

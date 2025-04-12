@@ -9,6 +9,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
         return;
     }
     let decoded
+    //@ts-ignore
     decoded = jwt.decode(token, process.env.JWT_SECRET as string, { algorithms: ['RS256'] });
     // console.log(decoded);
     if(!decoded?.sub){
