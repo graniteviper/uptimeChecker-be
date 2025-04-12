@@ -98,6 +98,11 @@ app.post('/api/v1/getkey', authMiddleware, async(req,res)=>{
     }
 })
 
+app.get("/health",(req,res)=>{
+    res.send("hi")
+    return;
+})
+
 app.listen(PORT, ()=>{
     console.log(`Listening on port ${PORT}`);
 })
