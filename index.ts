@@ -7,8 +7,17 @@ const app = express();
 
 const prismaClient = new PrismaClient();
 
-app.use(cors());
-app.options('*', cors());
+app.use(
+    cors({
+      origin: 'https://uptime-checker-py3w.vercel.app', 
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true,
+    })
+  );
+  
+  // Middleware to handle preflight OPTIONS requests
+  app.options('*', cors());
 app.use(express.json());
 
 const PORT = 8080;
