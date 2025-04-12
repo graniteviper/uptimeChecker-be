@@ -7,7 +7,8 @@ const app = express();
 
 const prismaClient = new PrismaClient();
 
-app.use(cors();)
+app.use(cors());
+app.options('*', cors());
 app.use(express.json());
 
 const PORT = 8080;
