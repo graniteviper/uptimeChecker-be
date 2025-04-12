@@ -9,7 +9,7 @@ const prismaClient = new PrismaClient();
 
 app.use(
     cors({
-      origin: ['https://uptime-checker-py3w.vercel.app','http://localhost:3000'], 
+      origin: ['https://web-monitor-frontend.vercel.app/dashboard','http://localhost:3000'], 
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
       credentials: true,
