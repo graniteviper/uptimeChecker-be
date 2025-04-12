@@ -7,17 +7,9 @@ const app = express();
 
 const prismaClient = new PrismaClient();
 
-app.use(
-    cors({
-      origin: ['https://web-monitor-frontend.vercel.app/dashboard','http://localhost:3000'], 
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization'],
-      credentials: true,
-    })
-  );
-  
-  // Middleware to handle preflight OPTIONS requests
-  app.options('*', cors());
+app.use(cors({
+    origin: "*"
+}));
 app.use(express.json());
 
 const PORT = 8080;
