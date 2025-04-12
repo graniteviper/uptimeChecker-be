@@ -1,9 +1,25 @@
 // create Website, get all websites status, get website status
 import express from "express"
-import { authMiddleware } from "../middleware/auth.middleware";
+import { authMiddleware } from "./middleware/auth.middleware";
 import { PrismaClient } from "@prisma/client";
 import cors from 'cors';
 const app = express();
+// At the very top of your main server file (before other imports)
+import * as nodeUtil from 'util';
+(global as any).util = nodeUtil;
+import util from 'util';
+
+if (!util.inherits) {
+  util.inherits = function(ctor: any, superCtor: any): void {
+    ctor.prototype = Object.create(superCtor.prototype);
+    ctor.prototype.constructor = ctor;
+  };
+}
+
+process.on('uncaughtException', (err) => {
+    console.error('UNCAUGHT EXCEPTION:', err);
+    console.error(err.stack);
+  });
 
 const prismaClient = new PrismaClient();
 

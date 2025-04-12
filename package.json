@@ -1,10 +1,11 @@
 {
   "name": "api",
   "module": "index.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "build": "bun build api/index.ts --outdir ./public",
-    "dev":  "bun x tsc -build && bun run index.ts"
+    "build": "tsc --outFile dist/bundle.js",
+    "dev": "bun x tsc -build && bun run index.ts",
+    "start": "node public/index.js"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -20,6 +21,9 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "prisma": "^6.5.0"
+    "node-polyfill-webpack-plugin": "^4.1.0",
+    "prisma": "^6.5.0",
+    "stream": "^0.0.3",
+    "util": "^0.12.5"
   }
 }
