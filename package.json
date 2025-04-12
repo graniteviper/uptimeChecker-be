@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun build index.ts --outdir ./dist",
+    "build": "bun build api/index.ts",
     "dev":  "bun x tsc -build && bun run index.ts"
   },
   "devDependencies": {
