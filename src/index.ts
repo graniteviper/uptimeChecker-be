@@ -1,4 +1,3 @@
-// create Website, get all websites status, get website status
 import express from "express"
 import { authMiddleware } from "./middleware/auth.middleware";
 import { PrismaClient } from "@prisma/client";
