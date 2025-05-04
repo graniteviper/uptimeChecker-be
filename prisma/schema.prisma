@@ -36,6 +36,7 @@ model websiteTicks {
   timestamp   DateTime
   latency     Float
   status      statusEnum
+  location    String   @default("Delhi")
   validator   Validator  @relation(fields: [validatorId], references: [id])
   website     Websites   @relation(fields: [websiteId], references: [id])
 }
