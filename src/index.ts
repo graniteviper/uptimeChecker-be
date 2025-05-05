@@ -65,6 +65,8 @@ app.get("/api/v1/getall",authMiddleware,async (req,res)=>{
 app.get("/api/v1/getone",authMiddleware,async (req,res)=>{
     const userId = req.userId;
     const websiteId = req.query.websiteId as string;
+    // console.log(websiteId);
+    // console.log(req.url);
     const data = await prismaClient.websites.findMany({
         where: {
             id: websiteId,
@@ -75,6 +77,7 @@ app.get("/api/v1/getone",authMiddleware,async (req,res)=>{
             websiteTicks: true
         }
     });
+    console.log(data);
     res.json({
         data
     })

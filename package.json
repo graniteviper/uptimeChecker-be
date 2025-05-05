@@ -7,6 +7,9 @@
     "dev": "bun x tsc -build && bun run index.ts",
     "start": "node public/index.js"
   },
+  "prisma":{
+    "seed": "ts-node prisma/seed.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
