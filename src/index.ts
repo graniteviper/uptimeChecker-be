@@ -3,7 +3,6 @@ import { authMiddleware } from "./middleware/auth.middleware";
 import { PrismaClient } from "@prisma/client";
 import cors from 'cors';
 const app = express();
-// At the very top of your main server file (before other imports)
 import * as nodeUtil from 'util';
 (global as any).util = nodeUtil;
 import util from 'util';
@@ -32,8 +31,6 @@ const PORT = 8080;
 app.post("/api/v1/create",authMiddleware,async function(req,res){
     const userId = req.userId!;
     const {url} = req.body.data;
-    // console.log(req.body);
-
     const response = await prismaClient.websites.create({
         data:{
             userId,
@@ -56,32 +53,10 @@ app.get("/api/v1/getall",authMiddleware,async (req,res)=>{
             websiteTicks: true
         }
     });
-    // console.log(data);
     res.json({
         data
     })
 })
-
-// app.get("/api/v1/getone",authMiddleware,async (req,res)=>{
-//     const userId = req.userId;
-//     const websiteId = req.query.websiteId as string;
-//     // console.log(websiteId);
-//     // console.log(req.url);
-//     const data = await prismaClient.websites.findMany({
-//         where: {
-//             id: websiteId,
-//             userId,
-//             disabled: false
-//         },
-//         include: {
-//             websiteTicks: true
-//         }
-//     });
-//     console.log(data);
-//     res.json({
-//         data
-//     })
-// })
 
 app.get("/api/v1/getone", authMiddleware, async (req, res) => {
   const userId = req.userId;
@@ -141,7 +116,6 @@ app.get("/api/v1/getone", authMiddleware, async (req, res) => {
 app.delete("/api/v1/delete/",authMiddleware,async (req,res)=>{
     const websiteId = req.query.websiteId as string;
     const userId = req.userId;
-    // console.log(websiteId,userId);
     await prismaClient.websites.update({
         where: {
             id: websiteId,

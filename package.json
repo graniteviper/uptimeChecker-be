@@ -3,9 +3,9 @@
   "module": "index.ts",
   "type": "commonjs",
   "scripts": {
-    "build": "tsc --outFile dist/bundle.js",
+    "build": "tsc -b",
     "dev": "bun x tsc -build && bun run index.ts",
-    "start": "node public/index.js"
+    "start": "bun dist/index.js"
   },
   "prisma":{
     "seed": "ts-node prisma/seed.ts"
