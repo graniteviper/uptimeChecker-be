@@ -143,6 +143,17 @@ app.get("/health",(req,res)=>{
     return;
 })
 
+app.post('/api/syncUsers',async (req,res)=>{
+  const user_data = req.body.user_data;
+  
+  await prismaClient.user.create({
+    data:{
+      id: user_data.email_addresses[0].id,
+      email: user_data.email_addresses[0].email_address
+    }
+  })
+})
+
 app.listen(PORT, ()=>{
     console.log(`Listening on port ${PORT}`);
 })
