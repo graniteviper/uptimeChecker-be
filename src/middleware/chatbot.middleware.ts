@@ -11,7 +11,7 @@ export async function chat(ai: GoogleGenAI,prompt: string,combinedTicks: any) {
                 {
                     "parts": [
                         {
-                            "text": `Analyse the following data and answer the prompt ${prompt} with data "${json_string}"`
+                            "text": `Analyze the following ${json_string} and answer ${prompt} in a direct, concise, and polished manner. Avoid restating the data or giving unnecessary context. Respond as if replying to the user's question naturally.`
                         }
                     ]
                 }
