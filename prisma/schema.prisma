@@ -18,6 +18,7 @@ model Websites {
   userId       String
   disabled     Boolean        @default(false)
   websiteTicks websiteTicks[]
+  websiteTicksLocation  websiteTicksLocation[]
 }
 
 model Validator {
@@ -36,8 +37,19 @@ model websiteTicks {
   timestamp   DateTime
   latency     Float
   status      statusEnum
-  location    String   @default("Delhi")
+  location    String     @default("Delhi")
   validator   Validator  @relation(fields: [validatorId], references: [id])
+  website     Websites   @relation(fields: [websiteId], references: [id])
+}
+
+model websiteTicksLocation {
+  id            String @id @default(uuid())
+  websiteTickId String
+  websiteId     String
+  continent     String
+  country       String
+  state         String
+  city          String
   website     Websites   @relation(fields: [websiteId], references: [id])
 }
 

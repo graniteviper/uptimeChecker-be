@@ -11,7 +11,8 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "uuid": "^11.1.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

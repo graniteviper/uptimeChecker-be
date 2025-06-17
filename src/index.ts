@@ -3,12 +3,13 @@ import express from "express"
 import { authMiddleware } from "./middleware/auth.middleware";
 import { PrismaClient } from "@prisma/client";
 import cors from 'cors';
-const app = express();
 import * as nodeUtil from 'util';
-(global as any).util = nodeUtil;
 import util from 'util';
 import { chatResponse } from "./types/interfaces";
 import { chat } from "./middleware/chatbot.middleware";
+
+(global as any).util = nodeUtil;
+const app = express();
 
 if (!util.inherits) {
   util.inherits = function(ctor: any, superCtor: any): void {
@@ -94,7 +95,7 @@ app.get("/api/v1/getone", authMiddleware, async (req, res) => {
     }
   });
 
-  console.log(data[0].websiteTicks);
+  // console.log(data[0].websiteTicks.length);
 
   if (!data || data.length === 0) {
     res.json({ data: [] });
@@ -130,7 +131,7 @@ app.get("/api/v1/getone", authMiddleware, async (req, res) => {
     .filter((tick) => !badTickIds.has(tick.id))
     .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
-  const combinedTicks = [...badTicks, ...remainingTicks].slice(0, 20);
+  const combinedTicks = [...badTicks, ...remainingTicks].slice(0, 50);
 
   const obj = data[0];
   res.json({
