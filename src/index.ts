@@ -7,6 +7,7 @@ const app = express();
 import * as nodeUtil from 'util';
 (global as any).util = nodeUtil;
 import util from 'util';
+import { chatResponse } from "./types/interfaces";
 import { chat } from "./middleware/chatbot.middleware";
 
 if (!util.inherits) {
@@ -49,6 +50,9 @@ app.post("/api/v1/create",authMiddleware,async function(req,res){
 app.get("/api/v1/getall",authMiddleware,async (req,res)=>{
     const userId = req.userId;
     const data = await prismaClient.websites.findMany({
+      omit:{
+        disabled: true
+      },
         where: {
             userId,
             disabled: false
@@ -58,10 +62,11 @@ app.get("/api/v1/getall",authMiddleware,async (req,res)=>{
               orderBy: {
                 timestamp: 'desc'
               },
-              take: 20
+              take: 15
             }
         }
     });
+    // console.log(data);
     res.json({
         data
     })
@@ -72,15 +77,24 @@ app.get("/api/v1/getone", authMiddleware, async (req, res) => {
   const websiteId = req.query.websiteId as string;
 
   const data = await prismaClient.websites.findMany({
+    omit:{
+      disabled: true
+    },
     where: {
       id: websiteId,
       userId,
       disabled: false
     },
     include: {
-      websiteTicks: true
+      websiteTicks:{
+        omit:{
+          validatorId: true
+        }
+      }
     }
   });
+
+  console.log(data[0].websiteTicks);
 
   if (!data || data.length === 0) {
     res.json({ data: [] });
@@ -178,8 +192,6 @@ app.post('/api/syncUsers',async (req,res)=>{
  }
 })
 
-
-
 app.post("/api/v1/chatbot",authMiddleware,async(req,res)=>{
   const prompt = req.body.data.prompt;
   const websiteId = req.query.websiteId as string;
@@ -195,7 +207,12 @@ app.post("/api/v1/chatbot",authMiddleware,async(req,res)=>{
       disabled: false
     },
     include: {
-      websiteTicks: true
+      websiteTicks:{
+        omit: {
+          validatorId: true,
+          websiteId: true
+        }
+      }
     }
   });
 
@@ -251,11 +268,6 @@ app.post("/api/v1/chatbot",authMiddleware,async(req,res)=>{
   })
   return;
 })
-
-interface chatResponse{
-  status: number,
-  response: string | unknown
-}
 
 app.listen(PORT, ()=>{
     console.log(`Listening on port ${PORT}`);
