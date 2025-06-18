@@ -28,7 +28,7 @@
     "jsonwebtoken": "^9.0.2",
     "node-polyfill-webpack-plugin": "^4.1.0",
     "openai": "^5.1.0",
-    "prisma": "^6.5.0",
+    "prisma": "^6.10.0",
     "stream": "^0.0.3",
     "util": "^0.12.5"
   }

@@ -270,6 +270,41 @@ app.post("/api/v1/chatbot",authMiddleware,async(req,res)=>{
   return;
 })
 
+app.get("/api/validator/payout",async(req,res)=>{
+  const validatorId = req.headers.authorization;
+  if(!validatorId){
+    res.json({
+      message: "No valid header found."
+    })
+    return;
+  }
+  
+  try{
+    const response = await prismaClient.validator.findFirst({
+      where:{
+        id: validatorId
+      },
+      omit:{
+        publicKey: true,
+        ip: true,
+        location: true,
+        id: true
+      }
+    })
+  
+    res.status(200).json({
+      response
+    })
+    return;
+  } catch(err){
+    console.log(err);
+    res.json({
+      error: "Error occurred"
+    }).status(500)
+  }
+
+})
+
 app.listen(PORT, ()=>{
     console.log(`Listening on port ${PORT}`);
 })
