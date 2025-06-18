@@ -270,7 +270,7 @@ app.post("/api/v1/chatbot",authMiddleware,async(req,res)=>{
   return;
 })
 
-app.get("/api/validator/payout",async(req,res)=>{
+app.get("/api/v1/validator/payout",async(req,res)=>{
   const validatorId = req.headers.authorization;
   if(!validatorId){
     res.json({
