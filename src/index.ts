@@ -7,6 +7,7 @@ import * as nodeUtil from 'util';
 import util from 'util';
 import { chatResponse } from "./types/interfaces";
 import { chat } from "./middleware/chatbot.middleware";
+import { isPublicUrl, isSafeUrl } from "./functions";
 
 (global as any).util = nodeUtil;
 const app = express();
@@ -34,13 +35,18 @@ const PORT = 8080;
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY});
 
-app.post("/api/v1/create",authMiddleware,async function(req,res){
+app.post("/api/v1/create",authMiddleware, async function(req,res){
     const userId = req.userId!;
     const {url} = req.body.data;
+    if (!url || !isSafeUrl(url) || !isPublicUrl(url)) {
+      res.status(400).json({ message: "Invalid URL" });
+      return;
+    }
+    const sanitisedURL = new URL(url).toString();
     const response = await prismaClient.websites.create({
         data:{
             userId,
-            url
+            url: sanitisedURL 
         }
     });
     res.status(200).json({
